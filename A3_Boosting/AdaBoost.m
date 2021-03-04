@@ -148,9 +148,11 @@ for j = 1:nClass
     train_acc(j) = sum(sign(train_eval) == yTrain)/nbrTrainImages;
 end
 
-strong_class = sign(test_eval);
+strong_class_test = sign(test_eval);
+strong_class_train = sign(train_eval);
 
-accuracy = sum(strong_class == yTest)/nbrTestImages;
+test_accuracy  = sum(strong_class_test == yTest)/nbrTestImages;
+train_accuracy = sum(strong_class_train == yTrain)/nbrTrainImages;
 
 %% Plot the error of the strong classifier as a function of the number of weak classifiers.
 %  Note: you can find this error without re-training with a different
@@ -167,9 +169,9 @@ legend('test acc', 'training accuracy')
 %% Plot some of the misclassified faces and non-faces
 %  Use the subplot command to make nice figures with multiple images.
 
-wrong_classification = strong_class ~= yTest;
+wrong_classification = strong_class_test ~= yTest;
 wrong_images         = testImages(:,:,wrong_classification);
-wrong_class          = strong_class(wrong_classification);
+wrong_class          = strong_class_test(wrong_classification);
 wrong_faces          = wrong_images(:,:,wrong_class == -1);
 wrong_nonfaces       = wrong_images(:,:,wrong_class == 1);
 

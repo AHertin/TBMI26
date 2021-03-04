@@ -2,15 +2,15 @@
 %  Initialize the world, Q-table, and hyperparameters
 clear variables; close all; clf;
 
-world = 3;
+world = 4;
 
 gwinit(world);
 state = gwstate();
 
-gamma      = 0.998;    % discount rate
+gamma      = 0.995;    % discount rate
 epsilon    = 0.95;   % exploration rate
-alpha      = 0.01;    % learning rate
-n_episodes = 2000;
+alpha      = 0.09;    % learning rate
+n_episodes = 3000;
 
 actions   = [1, 2, 3, 4];
 n_actions = length(actions);
@@ -52,8 +52,8 @@ for episode = 1:n_episodes
 
         % get feedback, if state is invalid (outside borders) feedback is
         % -100
-        if (~state.isvalid && world ~= 4)
-            feedback = -inf;
+        if ~state.isvalid
+            feedback = -100;
         else
             feedback = state.feedback;
         end
@@ -81,9 +81,7 @@ for episode = 1:n_episodes
         pause(3);
     end
     
-    if state.isterminal
-        Q_table(y_new, x_new, :) = 0;
-    end
+    
     
 end
 
@@ -103,40 +101,26 @@ imagesc(V);
 %  Also, you should not explore when testing, i.e. epsilon=0; always pick
 %  the optimal action.
 
+gwinit(world);
+state = gwstate();
 steps = 0;
+while ~state.isterminal
+        
+        % get last state and it's positions
+        x = state.pos(2);
+        y = state.pos(1);
+        
+        
+        %choose action to test
+        action = P(y, x);
 
-figure(3)
-clf;
-gwdraw()
-while true
-    gwinit(world);
-    state = gwstate();
-    while ~state.isterminal
+        %perform action
+        gwaction(action);
+        
+        steps = steps + 1;
 
-
-
-            % get last state and it's positions
-            x = state.pos(2);
-            y = state.pos(1);
-
-
-            %choose action to test
-            action = P(y, x);
-
-            %perform action
-            gwaction(action);
-
-            steps = steps + 1;
-
-            % get new state
-            state = gwstate();
-
-            figure(3)
-            clf;
-            gwdraw()
-
-
-    end
+        % get new state
+        state = gwstate();
+        
 end
-    
 

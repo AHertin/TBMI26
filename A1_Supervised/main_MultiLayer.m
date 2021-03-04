@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 4 % Change this to load new data 
 
 % X - Data samples
 % D - Desired output from classifier for each sample
@@ -16,7 +16,7 @@ dataSetNr = 1; % Change this to load new data
 
 %% Select a subset of the training features
 
-numBins = 3;                    % Number of Bins you want to devide your data into
+numBins = 15;                    % Number of Bins you want to devide your data into
 numSamplesPerLabelPerBin = inf; % Number of samples per label per bin, set to inf for max number (total number is numLabels*numSamplesPerBin)
 selectAtRandom = true;          % true = select features at random, false = select the first features
 
@@ -29,18 +29,18 @@ selectAtRandom = true;          % true = select features at random, false = sele
 % XBinComb = combineBins(XBins, [1,2,3]);
 
 % Add your own code to setup data for training and test here
-XTrain = combineBins(XBins, [1,2]);
-DTrain = combineBins(DBins, [1,2]);
-LTrain = combineBins(LBins, [1,2]);
-XTest  = XBins{3};
-DTest  = DBins{3};
-LTest  = LBins{3};
 % XTrain = combineBins(XBins, [1,2]);
 % DTrain = combineBins(DBins, [1,2]);
 % LTrain = combineBins(LBins, [1,2]);
-% XTest  = combineBins(XBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
-% DTest  = combineBins(DBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
-% LTest  = combineBins(LBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
+% XTest  = XBins{3};
+% DTest  = DBins{3};
+% LTest  = LBins{3};
+XTrain = combineBins(XBins, [1,2]);
+DTrain = combineBins(DBins, [1,2]);
+LTrain = combineBins(LBins, [1,2]);
+XTest  = combineBins(XBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
+DTest  = combineBins(DBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
+LTest  = combineBins(LBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
 
 %% Modify the X Matrices so that a bias is added
 %  Note that the bias must be the last feature for the plot code to work
