@@ -2,15 +2,15 @@
 %  Initialize the world, Q-table, and hyperparameters
 clear variables; close all; clf;
 
-world = 3;
+world = 1;
 
 gwinit(world);
 state = gwstate();
 
 gamma      = 0.998;    % discount rate
 epsilon    = 0.95;   % exploration rate
-alpha      = 0.01;    % learning rate
-n_episodes = 2000;
+alpha      = 1;    % learning rate
+n_episodes = 1000;
 
 actions   = [1, 2, 3, 4];
 n_actions = length(actions);

@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 4 % Change this to load new data 
+dataSetNr = 3; % Change this to load new data 
 
 % X - Data samples
 % D - Desired output from classifier for each sample
@@ -16,7 +16,7 @@ dataSetNr = 4 % Change this to load new data
 
 %% Select a subset of the training features
 
-numBins = 15;                    % Number of Bins you want to devide your data into
+numBins = 30;                    % Number of Bins you want to devide your data into
 numSamplesPerLabelPerBin = inf; % Number of samples per label per bin, set to inf for max number (total number is numLabels*numSamplesPerBin)
 selectAtRandom = true;          % true = select features at random, false = select the first features
 
@@ -38,9 +38,9 @@ selectAtRandom = true;          % true = select features at random, false = sele
 XTrain = combineBins(XBins, [1,2]);
 DTrain = combineBins(DBins, [1,2]);
 LTrain = combineBins(LBins, [1,2]);
-XTest  = combineBins(XBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
-DTest  = combineBins(DBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
-LTest  = combineBins(LBins, [3,4,5,6,7,8,9,10,11,12,13,14,15]);
+XTest  = combineBins(XBins, [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
+DTest  = combineBins(DBins, [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
+LTest  = combineBins(LBins, [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
 
 %% Modify the X Matrices so that a bias is added
 %  Note that the bias must be the last feature for the plot code to work
@@ -57,7 +57,7 @@ XTest = [XTest, ones(size(XTest,1), 1)];
 
 numHidden     = 10;     % Change this, number of hidden neurons 
 numIterations = 20000;   % Change this, number of iterations (epochs)
-learningRate  = 0.0135; % Change this, your learning rate
+learningRate  = 0.135; % Change this, your learning rate
 W0 = randn(size(XTrain,2), numHidden)/100 ; % Initialize your weight matrix W
 % W0 = rand(size(XTrain,2), numHidden);
 V0 = randn(size(DTrain,2), numHidden + 1)/100; % Initialize your weight matrix V

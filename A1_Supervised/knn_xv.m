@@ -1,10 +1,9 @@
-function [acc,bestK,lPtrain, lPtest] = knn_xv(XTrain, LTrain, XTest, LTest)
-    bestK = 0;
-    old_acc = 0;
-    acc = 0;
-    for k = 1:30
+function accV = knn_xv(XTrain, LTrain, XTest, LTest)
+    K = 30;
+    accV = zeros(1,K);
+    for k = 1:K
         % Classify training data
-        LPredTrain = kNN(XTrain, k, XTrain, LTrain);
+        % LPredTrain = kNN(XTrain, k, XTrain, LTrain);
         % Classify test data
         LPredTest  = kNN(XTest , k, XTrain, LTrain);
 
@@ -14,12 +13,7 @@ function [acc,bestK,lPtrain, lPtest] = knn_xv(XTrain, LTrain, XTest, LTest)
         % The accuracy
         acc = calcAccuracy(cM);
 
-        if acc > old_acc
-            bestK = k;
-            lPtrain = LPredTrain;
-            lPtest  = LPredTest;
-        end
-        old_acc = acc;
+        accV(1, k) = acc;
 
     end
 end

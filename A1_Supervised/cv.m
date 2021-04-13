@@ -23,35 +23,35 @@ selectAtRandom = true;          % true = select samples at random, false = selec
 
 binLine = 1:numBins;
 
-k = 0;
-best_acc = 0;
-acc = 0;
+acc = zeros(1,30);
+
 for i = 1:numBins
     XTrain = combineBins(XBins, binLine(1:3));
     LTrain = combineBins(LBins, binLine(1:3));
     XTest  = XBins{binLine(4)};
     LTest  = LBins{binLine(4)};
 
-    [acc, bestK, lPtrain, lPtest] = knn_xv(XTrain, LTrain, XTest, LTest);
-    
-    if acc > best_acc
-        k = bestK;
-        XTrain_out = XTrain;
-        LTrain_out = LTrain;
-        XTest_out = XTest;
-        LTest_out = LTest;
-        LPredTrain = lPtrain;
-        LPredTest  = lPtest;
-        best_acc = acc;
-    end
-    
+    acc = acc + knn_xv(XTrain, LTrain, XTest, LTest);
     
     binLine = circshift(binLine,1);
 end
+
+acc = acc ./ 4;
+
+[maxAcc, bestK] = max(acc);
+
+%%
+LPredT = kNN(XTrain , bestK, XTrain, LTrain);
+LPred = kNN(XTest , bestK, XTest, LTest);
+
+%%
     
 if dataSetNr < 4
-    plotResultDots(XTrain_out, LTrain_out, LPredTrain, XTest_out, LTest_out, LPredTest, 'kNN', [], k);
+    plotResultDots(XTrain, LTrain, LPredT, XTest, LTest, LPred, 'kNN', [], bestK);
 else
-    plotResultsOCR(XTest_out, LTest, LPredTest)
+    plotResultsOCR(XTest, LTest, LPred)
 end
+%%
+figure(2)
+plot(acc)
     
